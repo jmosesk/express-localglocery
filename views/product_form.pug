@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1= title
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='name') Name:
+      input#name.form-control(type='text', placeholder='Name of Product' name='name' required='true' value=(undefined===product ? '' : product.name) )
+    div.form-group
+      label(for='vendor') Vendor:
+      select#vendor.form-control(type='select', placeholder='Select vendor' name='vendor' required='true' )
+        for vendor in vendors
+          if product
+            option(value=vendor._id selected=(vendor._id.toString()==product.vendor ? 'selected' : false) ) #{vendor.name}
+          else
+            option(value=vendor._id) #{vendor.name}
+    div.form-group
+      label(for='description') Details:
+      input#summary.form-control(type='textarea', placeholder='Description' name='description' value=(undefined===product ? '' : product.description) required='true')
+    div.form-group
+      label Type:
+      div
+        for type in types
+          div(style='display: inline; padding-right:10px;')
+            input.checkbox-input(type='checkbox', name='type', id=type._id, value=type._id, checked=type.checked )
+            label(for=type._id) #{type.name}
+    button.btn.btn-primary(type='submit') Submit
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

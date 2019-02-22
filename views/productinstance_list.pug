@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+
+  ul
+    each val in productinstance_list
+      li 
+        a(href=val.url) #{val.product.name} : #{val.qty} - 
+        if val.location=='Shop'
+          span.text-success #{val.location}
+        else if val.location=='Store'
+          span.text-danger #{val.location}
+        else
+          span.text-warning #{val.location}   
+    else
+      li There are no various products in this shop .

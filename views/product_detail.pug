@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1 #{title}: #{product.name}
+  
+  p #[strong Vendor:] 
+    a(href=product.vendor.url) #{product.vendor.name}
+  p #[strong Description:] #{product.description} 
+  p #[strong Type:]&nbsp;
+    each val, index in product.type
+      a(href=val.url) #{val.name}
+      if index < product.type.length - 1
+        |, 
+  
+  div(style='margin-left:20px;margin-top:20px')
+    h4 Various Products
+    
+    each val in product_instances
+      hr
+      if val.location=='Shop'
+        p.text-success #{val.location}
+      else if val.location=='Over'
+        p.text-danger #{val.location}
+      else
+        p.text-warning #{val.location} 
+      p #[strong qty:] #{val.qty}
+      if val.status!='Shop'
+        p #[strong Location:] #{val.location}
+      p #[strong Id:]&nbsp;
+        a(href=val.url) #{val._id}
+ 
+    else
+      p There are no copies of this book in the library.
